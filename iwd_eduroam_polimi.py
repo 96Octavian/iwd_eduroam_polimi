@@ -5,6 +5,7 @@ import cryptography.hazmat.primitives.serialization.pkcs12 as pk
 import cryptography.hazmat.primitives.serialization as ser
 import sys
 import os
+from typing import Tuple
 
 
 CERTIFICATE_FILENAME: str = "eduroam.pem"
@@ -119,7 +120,7 @@ def install(p12_certificate_path: str, username: str, password: str, install_sys
         f"iwd polimi-protected configuration written to {iwd_polimiprotected_destination}")
 
 
-def prepare_installer() -> None:
+def prepare_installer() -> Tuple[str, str, str, str]:
     username: str = str()
     p12_certificate_path: str = str()
     install_system_wide: bool = False
@@ -147,7 +148,7 @@ def prepare_installer() -> None:
         if not password:
             print("Empty password not allowed.")
 
-    install(p12_certificate_path, username, password, install_system_wide)
+    return p12_certificate_path, username, password, install_system_wide
 
 
 if __name__ == '__main__':
